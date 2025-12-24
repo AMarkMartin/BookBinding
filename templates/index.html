@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pro Binding Template Generator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>Bookbinding Template Generator</h1>
+            <p>Generate professional leather binding templates with precise measurements.</p>
+        </header>
+
+        <main class="app-layout">
+            <section class="controls">
+                <form id="bindingForm">
+                    <div class="input-group">
+                        <h2>Dimensions (mm)</h2>
+                        <div class="input-row">
+                            <label>
+                                Block Width
+                                <input type="number" id="book_w" name="book_w" value="152" step="0.5" required>
+                            </label>
+                            <label>
+                                Block Height
+                                <input type="number" id="book_h" name="book_h" value="229" step="0.5" required>
+                            </label>
+                        </div>
+                        <div class="input-row">
+                            <label>
+                                Block Thickness (Spine)
+                                <input type="number" id="book_t" name="book_t" value="25" step="0.5" required>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <h2>Configuration</h2>
+                        <div class="input-row">
+                            <label>
+                                Board Thickness
+                                <input type="number" id="board_thickness" name="board_thickness" value="2.0" step="0.1"
+                                    required>
+                            </label>
+                            <label>
+                                Turn In
+                                <input type="number" id="turn_in" name="turn_in" value="20.0" step="0.5" required>
+                            </label>
+                        </div>
+                        <div class="input-row">
+                            <label>
+                                Hinge Gap
+                                <input type="number" id="hinge_gap" name="hinge_gap" value="7.0" step="0.5" required>
+                            </label>
+                            <label>
+                                Square (Overhang)
+                                <input type="number" id="square" name="square" value="3.0" step="0.5" required>
+                            </label>
+                        </div>
+                        <div class="input-row">
+                            <label>
+                                Number of Hubs
+                                <input type="number" id="num_hubs" name="num_hubs" value="5" min="0" step="1" required>
+                            </label>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn-primary" id="generateBtn">Generate Template</button>
+                </form>
+
+                <div id="measurements" class="measurements-panel hidden">
+                    <h3>Measurements & Materials</h3>
+                    <p><strong>Leather Cut:</strong> <span id="meas-cut"></span> mm</p>
+                    <div id="material-estimates">
+                        <p><strong>Leather Area:</strong> <span id="meas-leather-area"></span> cm² (<span
+                                id="meas-leather-sqft"></span> sq ft)</p>
+                        <p><strong>Total Board Area:</strong> <span id="meas-board-area"></span> cm²</p>
+                    </div>
+                    <div id="meas-hubs">
+                        <!-- Hub list populated by JS -->
+                    </div>
+                </div>
+
+                <div class="input-group design-tools">
+                    <div class="tool-header">
+                        <h2>Design & Embellishments</h2>
+                    </div>
+                    <p class="helper-text">Add tooling lines and decorative stamps.</p>
+
+                    <div class="input-row border-tool">
+                        <label>
+                            Border / Tooling Inset (mm)
+                            <input type="number" id="border_inset" name="border_inset" value="0" min="0" step="1">
+                        </label>
+                    </div>
+
+                    <div class="tool-controls">
+                        <button type="button" class="btn-secondary" id="addTextBtn">+ Text</button>
+                        <button type="button" class="btn-secondary" id="addStampBtn">+ Stamp</button>
+                    </div>
+
+                    <div id="designList" class="design-list">
+                        <!-- Dynamic design items added here -->
+                    </div>
+
+                    <div class="stamp-guide">
+                        <small><strong>Available Stamps:</strong> Acorn, Fleuron, Corner. <br>Use 'Scale' to adjust
+                            size.</small>
+                    </div>
+                </div>
+            </section>
+
+            <section class="preview">
+                <div class="preview-header">
+                    <h2>Preview</h2>
+                    <button id="downloadBtn" class="btn-secondary" disabled>Download SVG</button>
+                </div>
+                <div id="svgContainer" class="svg-wrapper">
+                    <p class="placeholder-text">Enter dimensions and click Generate to see the template.</p>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+
+</html>
